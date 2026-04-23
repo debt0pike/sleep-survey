@@ -25,3 +25,10 @@ create_fields_v9.py
 # macOS
 .DS_Store
 __pycache__/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
