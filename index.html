@@ -2165,26 +2165,13 @@ async function submitToFeishu() {
   ].filter(Boolean).join('\n');
   if (otherParts) fields['其他补充'] = otherParts;
 
-  /* ── 直接调飞书 Bitable API ── */
-  const APP_ID     = 'cli_a95b87c9d1f8dbc2';
-  const APP_SECRET = 'ONch0li1lnHo8NfjMtdq9cxoVtNAXm1m';
-  const APP_TOKEN  = 'YArmbgA4caqIMMsAgtCcJZetnOS';
-  const TABLE_ID   = 'tblv0OzbG1KV7hEr';
+  /* ── 通过 Cloudflare Worker 提交到飞书 ── */
   try {
-    const tokenResp = await fetch('https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal', {
+    const resp = await fetch('https://sleep-survey.terryrausch110.workers.dev/', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({app_id: APP_ID, app_secret: APP_SECRET})
+      body: JSON.stringify({fields})
     });
-    const {tenant_access_token: token} = await tokenResp.json();
-    const resp = await fetch(
-      `https://open.feishu.cn/open-apis/bitable/v1/apps/${APP_TOKEN}/tables/${TABLE_ID}/records`,
-      {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
-        body: JSON.stringify({fields})
-      }
-    );
     const json = await resp.json();
     if (json.code !== 0) console.warn('[Feishu] code:', json.code, json.msg);
   } catch (e) {
