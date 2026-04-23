@@ -1,0 +1,23 @@
+# 只保留部署必需文件，其余全部忽略
+*.xlsx
+*.docx
+*.command
+*.zip
+
+# 旧版 HTML
+睡眠调查_v2.html
+睡眠调查_v3.html
+睡眠调查_v4.html
+睡眠调查_v5.html
+睡眠调查_v6.html
+睡眠调查_v7.html
+睡眠调查_v8.html
+睡眠调查_hero.html
+睡眠用户调查表.html
+
+# 旧字段脚本
+create_fields.py
+
+# macOS
+.DS_Store
+__pycache__/
