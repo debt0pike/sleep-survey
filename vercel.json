@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/submit.py": {
-      "runtime": "vercel-python@4.3.0"
-    }
-  },
   "rewrites": [
     { "source": "/", "destination": "/index.html" }
   ]
