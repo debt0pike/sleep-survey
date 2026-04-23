@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>睡眠健康评估 | 大萌博士</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   BOTANICAL CLINIC — Premium Sleep Health Assessment
+   Bento Grid + 3D Decorative Elements + Card-Based Options
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --black: #3d6843;
+  --olive: #4a7a50;
+  --olive2: #5a8a5e;
+  --olive3: #6a9a6e;
+  --olive4: #7aaa7e;
+  --sage: #6b8f71;
+  --sage-l: #8aab8f;
+  --sage-xl: #a8c5ad;
+  --mint: #c8dcc8;
+  --mint-l: #dceadc;
+  --green: #4a7c50;
+  --green-a: #5a9960;
+  --green-deep: #2d5a33;
+  --linen: #f6f2eb;
+  --linen2: #ece7dc;
+  --linen3: #e2dcd0;
+  --parchment: #faf8f3;
+  --cream: #fdfcf8;
+  --white: #ffffff;
+  --text: #1a1f1a;
+  --text2: #4a524a;
+  --text3: #8a918a;
+  --text4: #b5bab5;
+  --gold: #b8963a;
+  --gold-l: #d4b05a;
+  --gold-soft: rgba(184,150,58,0.12);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --r: 20px;
+  --r-sm: 14px;
+  --r-xs: 10px;
+  --r-lg: 28px;
+  --ease: cubic-bezier(.25,.8,.25,1);
+  --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family: var(--sans);
+  background: var(--linen);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Grain ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px;
+}
+
+/* ── Progress ── */
+.progress-wrap {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 3px;
+}
+.progress-wrap.dark { background: rgba(255,255,255,0.04); }
+.progress-wrap.light { background: rgba(0,0,0,0.04); }
+.progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--sage), var(--green-a), var(--gold-l));
+  transition: width 0.7s var(--ease);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── Step badge ── */
+.step-badge {
+  position: fixed; top: 18px; right: 24px; z-index: 201;
+  font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 2.5px; padding: 7px 16px; border-radius: 20px;
+  transition: all 0.4s var(--ease);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.step-badge.dark { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.70); border: 1px solid rgba(255,255,255,0.14); }
+.step-badge.light { background: rgba(255,255,255,0.7); color: var(--text3); border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+
+/* ── Pages ── */
+.pages { position: relative; z-index: 1; height: 100vh; width: 100%; }
+.pg {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-start; justify-content: center;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  opacity: 0; transform: translateY(30px); pointer-events: none;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.pg.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.pg-in { width: 100%; max-width: 780px; margin: 0 auto; padding: 40px 28px 100px; }
+
+/* ═══ WELCOME PAGE — Blended: DNA helix + warm card style ═══ */
+.pg-welcome {
+  background: var(--linen) !important;
+  position: absolute !important; inset: 0;
+  display: block !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+/* Subtle warm radial gradients */
+.pg-welcome::before {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(107,143,113,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 70%, rgba(184,150,58,0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(90,153,96,0.04) 0%, transparent 60%);
+}
+/* Light grid lines */
+.pg-welcome::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(107,143,113,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107,143,113,0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at 60% 45%, black 15%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse at 60% 45%, black 15%, transparent 65%);
+}
+
+.w-meta {
+  position:absolute; top:0; left:0; right:0; z-index:10;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 40px;
+  font-family: var(--sans); font-size:12px; font-weight:600;
+  letter-spacing:1.5px; color:var(--text3);
+}
+.w-blink { animation: wBlink 2.5s ease-in-out infinite; }
+@keyframes wBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.w-fade-top { position:absolute; top:0; left:0; right:0; height:120px; background:linear-gradient(var(--linen) 10%,transparent); pointer-events:none; z-index:6; }
+.w-fade-bottom { position:absolute; bottom:0; left:0; right:0; height:200px; background:linear-gradient(transparent,var(--linen) 85%); pointer-events:none; z-index:6; }
+
+.w-glow {
+  position:absolute; width:350px; height:350px; border-radius:50%;
+  background:radial-gradient(circle,rgba(107,143,113,0.1) 0%,transparent 70%);
+  pointer-events:none; z-index:3; transition:left 0.1s linear,top 0.1s linear; opacity:0;
+}
+.pg-welcome:hover .w-glow { opacity:1; }
+
+.w-content {
+  position:absolute; inset:0; z-index:5;
+  display:flex; align-items:center; padding:0 60px;
+}
+.w-text { position:relative; z-index:5; max-width:480px; }
+.w-text h1 {
+  font-family: var(--serif);
+  font-size:clamp(40px,6vw,64px); font-weight:800;
+  line-height:1.08; letter-spacing:-1.5px; color:var(--text);
+  margin-bottom:24px;
+}
+.w-text h1 em {
+  font-style:normal; display:block;
+  background:linear-gradient(135deg, var(--sage), var(--green-a));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.w-desc {
+  font-size:16px; line-height:2; color:var(--text3);
+  max-width:380px; margin-bottom:32px;
+}
+/* Score guide — small inline cards */
+.w-scores-row {
+  display:flex; gap:8px; margin-bottom:0;
+}
+.w-sc-mini {
+  padding:8px 14px; border-radius:8px; font-size:12px; font-weight:600;
+  background:var(--white); border:1px solid rgba(0,0,0,0.05);
+  box-shadow:0 1px 4px rgba(0,0,0,0.03);
+  color:var(--text3); display:flex; align-items:center; gap:6px;
+}
+.w-sc-mini .w-sc-n { color:var(--sage); font-weight:700; }
+
+.helix-box {
+  position:absolute; top:0; bottom:0; right:15%; transform:none;
+  width:200px; z-index:2; perspective:800px; height:100%;
+}
+.helix {
+  position:absolute; top:-10%; bottom:-10%; left:50%;
+  transform-style:preserve-3d;
+  animation:helixSpin 22s linear infinite;
+}
+@keyframes helixSpin {
+  from { transform:translateX(-50%) rotateY(0deg); }
+  to { transform:translateX(-50%) rotateY(360deg); }
+}
+.helix-char {
+  position:absolute; left:50%;
+  font-family:'Space Mono',monospace; font-size:14px; font-weight:700;
+  color:rgba(107,143,113,0.3);
+  transform-style:preserve-3d; backface-visibility:hidden;
+}
+.helix-bond {
+  position:absolute; left:50%; height:1px;
+  background:rgba(107,143,113,0.08);
+  transform-origin:left center; transform-style:preserve-3d;
+}
+
+.w-cta {
+  position:absolute; bottom:48px; left:0; right:0;
+  display:flex; align-items:center; justify-content:center;
+  gap:12px; z-index:10;
+}
+.w-cta-label {
+  font-family:var(--sans); font-size:12px; font-weight:500;
+  letter-spacing:1px; color:var(--text3);
+}
+.w-cta-btn {
+  display:inline-flex; align-items:center; gap:12px;
+  padding:16px 36px; border-radius:60px; border:none;
+  background:var(--olive); color:var(--parchment);
+  font-family:var(--sans); font-size:16px; font-weight:700;
+  cursor:pointer; transition:all 0.3s; letter-spacing:0.5px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1);
+}
+.w-cta-btn:hover {
+  background:var(--sage); transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(107,143,113,0.25);
+}
+.w-cta-btn svg { transition:transform 0.3s; }
+.w-cta-btn:hover svg { transform:translateX(3px); }
+
+.pg-dark {
+  background: #1a3a22;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(120,210,140,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(90,180,110,0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, rgba(70,160,100,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 60%, rgba(100,190,130,0.1) 0%, transparent 40%);
+  position: relative;
+}
+/* Grid lines overlay — Linear style */
+.pg-dark::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
+}
+/* Aurora glow band */
+.pg-dark::after {
+  content: ''; position: absolute; top: 15%; left: 10%; right: 10%; height: 40%;
+  pointer-events: none; z-index: 0;
+  background: linear-gradient(135deg,
+    rgba(60,180,100,0.06) 0%,
+    rgba(80,200,120,0.04) 30%,
+    rgba(100,220,140,0.02) 50%,
+    transparent 70%);
+  filter: blur(60px);
+  border-radius: 50%;
+}
+.pg-dark .pg-in { padding-top: 60px; }
+.pg-light { background: var(--linen); }
+.pg-light .pg-in { padding-top: 48px; }
+
+/* ── 3D Decorative orbs on light pages ── */
+.pg-light .deco-orb-1 {
+  position: fixed; top: -8%; right: -8%; width: 500px; height: 500px;
+  border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle at 35% 35%,
+    rgba(168,197,173,0.18) 0%,
+    rgba(107,143,113,0.08) 40%,
+    transparent 70%);
+  filter: blur(30px);
+}
+.pg-light .deco-orb-2 {
+  position: fixed; bottom: -12%; left: -6%; width: 400px; height: 400px;
+  border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle at 60% 60%,
+    rgba(184,150,58,0.08) 0%,
+    rgba(212,176,90,0.04) 40%,
+    transparent 65%);
+  filter: blur(35px);
+}
+.pg-light .deco-orb-3 {
+  position: fixed; top: 40%; left: -15%; width: 350px; height: 350px;
+  border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(90,153,96,0.06) 0%,
+    transparent 60%);
+  filter: blur(40px);
+}
+
+/* ═══════════════════════════════════════════════════
+   WELCOME PAGE — Immersive Hero
+   ═══════════════════════════════════════════════════ */
+.welcome {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: calc(100vh - 100px); text-align: center;
+  position: relative; z-index: 1;
+}
+
+/* Floating 3D spheres on welcome */
+.hero-sphere {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  animation: sphereFloat 8s ease-in-out infinite;
+}
+.hero-sphere-1 {
+  width: 280px; height: 280px; top: -5%; right: -8%;
+  background: radial-gradient(circle at 30% 25%,
+    rgba(168,197,173,0.25) 0%,
+    rgba(107,143,113,0.15) 30%,
+    rgba(45,90,51,0.08) 60%,
+    transparent 80%);
+  animation-delay: 0s;
+}
+.hero-sphere-2 {
+  width: 180px; height: 180px; bottom: 10%; left: -5%;
+  background: radial-gradient(circle at 40% 30%,
+    rgba(184,150,58,0.18) 0%,
+    rgba(184,150,58,0.06) 40%,
+    transparent 70%);
+  animation-delay: -3s;
+}
+.hero-sphere-3 {
+  width: 120px; height: 120px; top: 15%; left: 5%;
+  background: radial-gradient(circle at 35% 30%,
+    rgba(138,171,143,0.2) 0%,
+    rgba(107,143,113,0.08) 50%,
+    transparent 75%);
+  animation-delay: -5s;
+}
+@keyframes sphereFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(2deg); }
+  66% { transform: translateY(8px) rotate(-1deg); }
+}
+
+/* Glass card behind welcome content */
+.welcome-glass {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.w-brand {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 48px; font-family: var(--sans);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7);
+  letter-spacing: 4px; text-transform: uppercase;
+  padding: 10px 24px; border-radius: 40px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.w-brand .w-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), var(--green-a));
+  box-shadow: 0 0 12px rgba(107,143,113,0.4);
+}
+
+.welcome h1 {
+  font-family: var(--serif); font-size: clamp(44px, 8vw, 72px);
+  font-weight: 900; color: #ffffff; line-height: 1.05;
+  margin-bottom: 24px; letter-spacing: -2px;
+}
+.welcome h1 em {
+  font-style: normal; display: block;
+  background: linear-gradient(135deg, #8fe89a, #5ac466, #3da84a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.w-sub {
+  font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 56px;
+  line-height: 2.2; max-width: 360px; font-weight: 400; letter-spacing: 0.3px;
+}
+
+/* Bento score cards */
+.w-scores {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  width: 100%; max-width: 480px; margin-bottom: 56px;
+}
+.w-sc {
+  padding: 24px 12px; border-radius: 16px; text-align: center;
+  position: relative; overflow: hidden;
+  transition: all 0.4s var(--ease);
+}
+.w-sc:nth-child(1) { background: rgba(107,143,113,0.06); border: 1px solid rgba(107,143,113,0.1); }
+.w-sc:nth-child(2) { background: rgba(107,143,113,0.09); border: 1px solid rgba(107,143,113,0.13); }
+.w-sc:nth-child(3) { background: rgba(107,143,113,0.13); border: 1px solid rgba(107,143,113,0.16); }
+.w-sc:nth-child(4) { background: rgba(184,150,58,0.08); border: 1px solid rgba(184,150,58,0.12); }
+.w-sc:hover { transform: translateY(-3px) scale(1.02); }
+.w-sc-n {
+  font-family: var(--serif); font-size: 32px; font-weight: 800;
+  margin-bottom: 6px;
+}
+.w-sc:nth-child(1) .w-sc-n { color: var(--sage-xl); }
+.w-sc:nth-child(2) .w-sc-n { color: var(--sage-l); }
+.w-sc:nth-child(3) .w-sc-n { color: var(--sage); }
+.w-sc:nth-child(4) .w-sc-n { color: var(--gold-l); }
+.w-sc-l { font-size: 13px; color: rgba(255,255,255,0.60); letter-spacing: 0.5px; font-weight: 500; }
+
+.btn-go {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 20px 52px; border-radius: 60px; border: none;
+  background: linear-gradient(135deg, var(--sage), var(--green-a));
+  color: var(--parchment);
+  font-family: var(--sans); font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: all 0.4s var(--ease); letter-spacing: 0.5px;
+  box-shadow: 0 4px 24px rgba(107,143,113,0.3), 0 12px 48px rgba(107,143,113,0.15);
+  position: relative; overflow: hidden;
+}
+.btn-go::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  transform: translateX(-100%); transition: transform 0.6s;
+}
+.btn-go:hover::before { transform: translateX(100%); }
+.btn-go:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 36px rgba(107,143,113,0.4), 0 20px 60px rgba(107,143,113,0.2);
+}
+.btn-go svg { transition: transform 0.3s; }
+.btn-go:hover svg { transform: translateX(4px); }
+
+.w-note {
+  margin-top: 48px; max-width: 500px; padding: 28px 32px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  font-size: 15px; color: rgba(255,255,255,0.55); line-height: 2.2;
+  text-align: left;
+}
+.w-note strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════
+   SECTION BANNER — Full-width dark header
+   ═══════════════════════════════════════════════════ */
+.sec-banner {
+  margin: -48px -28px 36px; padding: 52px 40px 44px;
+  background: linear-gradient(135deg, #3d7044 0%, #5a9960 100%);
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  position: relative; overflow: hidden;
+}
+/* 3D sphere in banner */
+.sec-banner .banner-sphere {
+  position: absolute; top: -30%; right: -5%; width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(168,197,173,0.12) 0%,
+    rgba(107,143,113,0.05) 50%,
+    transparent 75%);
+  pointer-events: none;
+}
+.sec-banner .banner-sphere-2 {
+  position: absolute; bottom: -40%; left: 10%; width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%,
+    rgba(184,150,58,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Glass line accent */
+.sec-banner::after {
+  content: ''; position: absolute; bottom: 0; left: 40px; right: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+.sec-tag {
+  display: inline-block; font-family: var(--sans);
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  color: var(--sage); margin-bottom: 16px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 20px;
+  background: rgba(107,143,113,0.08); border: 1px solid rgba(107,143,113,0.1);
+}
+.sec-banner h2 {
+  font-family: var(--serif); font-size: clamp(28px, 4.5vw, 36px);
+  font-weight: 800; color: var(--parchment); line-height: 1.2;
+  margin-bottom: 10px; position: relative; z-index: 1; letter-spacing: -0.5px;
+}
+.sec-banner .sec-d {
+  font-size: 16px; color: rgba(245,241,234,0.70); line-height: 1.7;
+  position: relative; z-index: 1; font-weight: 400;
+}
+.sec-banner .sec-brand {
+  position:absolute; top:20px; right:28px; z-index:2;
+  font-family:var(--sans); font-size:11px; font-weight:600;
+  letter-spacing:1.5px; color:rgba(255,255,255,0.45);
+}
+
+/* ── Fixed bottom brand watermark on all light pages ── */
+.pg-brand {
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  font-family:var(--sans); font-size:11px; font-weight:500;
+  letter-spacing:1.5px; color:rgba(0,0,0,0.12);
+  z-index:90; pointer-events:none;
+}
+
+/* ═══════════════════════════════════════════════════
+   DECORATIVE DIVIDERS between cards
+   ═══════════════════════════════════════════════════ */
+.deco-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin: 28px 0; opacity: 0.25;
+}
+.deco-divider .deco-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--sage), transparent); }
+.deco-divider .deco-diamond {
+  width: 8px; height: 8px; border: 1.5px solid var(--sage);
+  transform: rotate(45deg); border-radius: 2px;
+}
+
+/* Glass accent strips */
+.glass-accent {
+  margin: 24px 0; padding: 20px 28px; border-radius: var(--r);
+  background: rgba(107,143,113,0.04);
+  border: 1px solid rgba(107,143,113,0.08);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  position: relative; overflow: hidden;
+}
+.glass-accent::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168,197,173,0.2), transparent);
+}
+.glass-accent p {
+  font-size: 13px; color: var(--text3); line-height: 1.8; font-weight: 400;
+}
+.glass-accent strong { color: var(--sage); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════
+   BENTO GRID LAYOUT for question cards
+   ═══════════════════════════════════════════════════ */
+.bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.bento .full { grid-column: 1 / -1; }
+.bento .half { grid-column: span 1; }
+
+/* ═══════════════════════════════════════════════════
+   QUESTION CARDS — Multiple visual variants
+   ═══════════════════════════════════════════════════ */
+.qc {
+  border-radius: var(--r);
+  padding: 32px 28px;
+  position: relative;
+  transition: all 0.35s var(--ease);
+  /* stagger animation */
+  opacity: 0; transform: translateY(20px);
+}
+.pg.active .qc { animation: bentoPop 0.6s var(--ease-bounce) forwards; }
+.pg.active .qc:nth-child(1) { animation-delay: 0.05s; }
+.pg.active .qc:nth-child(2) { animation-delay: 0.12s; }
+.pg.active .qc:nth-child(3) { animation-delay: 0.19s; }
+.pg.active .qc:nth-child(4) { animation-delay: 0.26s; }
+.pg.active .qc:nth-child(5) { animation-delay: 0.33s; }
+.pg.active .qc:nth-child(6) { animation-delay: 0.40s; }
+.pg.active .qc:nth-child(7) { animation-delay: 0.47s; }
+.pg.active .qc:nth-child(8) { animation-delay: 0.54s; }
+
+@keyframes bentoPop {
+  0% { opacity: 0; transform: translateY(20px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Card variants */
+.qc-white {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 8px 32px rgba(0,0,0,0.03);
+}
+.qc-white:hover { box-shadow: 0 2px 4px rgba(0,0,0,0.03), 0 12px 40px rgba(0,0,0,0.06); transform: translateY(-2px); }
+
+.qc-cream {
+  background: var(--cream);
+  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 6px 24px rgba(0,0,0,0.025);
+}
+
+.qc-sage {
+  background: linear-gradient(135deg, rgba(168,197,173,0.12), rgba(107,143,113,0.06));
+  border: 1px solid rgba(107,143,113,0.1);
+  box-shadow: 0 4px 24px rgba(107,143,113,0.06);
+}
+
+.qc-dark {
+  background: var(--olive);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.qc-dark .q-title { color: var(--parchment); }
+.qc-dark .q-title .q-n { background: rgba(255,255,255,0.08); color: var(--sage-l); }
+.qc-dark .q-sub { color: rgba(255,255,255,0.70); }
+.qc-dark .opt-card, .qc-dark .capsule { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.12); color: #fff; }
+.qc-dark .opt-card span, .qc-dark .capsule span { color: rgba(255,255,255,0.9); }
+.qc-dark .opt-card:hover, .qc-dark .capsule:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+.qc-dark input[type="text"], .qc-dark input[type="number"], .qc-dark textarea { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: #fff; }
+.qc-dark input::placeholder { color: rgba(255,255,255,0.35); }
+
+.qc-gradient {
+  background: linear-gradient(135deg, var(--olive3), var(--olive2));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  position: relative; overflow: hidden;
+}
+.qc-gradient::before {
+  content: ''; position: absolute; top: -50%; right: -20%;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,143,113,0.08), transparent 70%);
+  pointer-events: none;
+}
+.qc-gradient .q-title { color: var(--parchment); }
+.qc-gradient .q-title .q-n { background: rgba(255,255,255,0.08); color: var(--sage-l); }
+.qc-gradient .q-sub { color: rgba(255,255,255,0.70); }
+.qc-gradient .opt-card, .qc-gradient .capsule { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.12); }
+.qc-gradient .opt-card span, .qc-gradient .capsule span { color: rgba(255,255,255,0.9); }
+.qc-gradient .opt-card:hover, .qc-gradient .capsule:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+.qc-gradient input[type="text"], .qc-gradient input[type="number"] { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: #fff; }
+.qc-gradient input::placeholder { color: rgba(255,255,255,0.35); }
+
+.qc-gold {
+  background: linear-gradient(135deg, rgba(184,150,58,0.06), rgba(184,150,58,0.02));
+  border: 1px solid rgba(184,150,58,0.1);
+  box-shadow: 0 4px 24px rgba(184,150,58,0.04);
+}
+
+/* ── Q title ── */
+.q-title {
+  font-family: var(--sans); font-size: 18px; font-weight: 700;
+  color: var(--text); margin-bottom: 20px;
+  display: flex; align-items: flex-start; gap: 14px; line-height: 1.5;
+}
+.q-n {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 30px; height: 30px; border-radius: 10px;
+  background: var(--olive); font-size: 12px; font-weight: 700;
+  color: var(--sage-l); flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.q-sub {
+  font-size: 14px; color: var(--text3); margin: -12px 0 18px 44px;
+  font-weight: 400; line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════
+   OPTION CARDS — Color block grid (single choice)
+   ═══════════════════════════════════════════════════ */
+.opt-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.opt-card {
+  padding: 18px 20px; border-radius: var(--r-sm);
+  cursor: pointer; border: 2px solid transparent;
+  transition: all 0.3s var(--ease); position: relative;
+  display: flex; align-items: center; gap: 12px;
+  overflow: hidden;
+}
+.opt-card input { position: absolute; opacity: 0; width: 0; height: 0; }
+.opt-card span { font-size: 16px; font-weight: 500; line-height: 1.45; position: relative; z-index: 1; }
+.opt-card .opt-indicator {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid rgba(0,0,0,0.08); transition: all 0.3s var(--ease);
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.opt-card .opt-indicator::after {
+  content: ''; width: 0; height: 0; border-radius: 50%;
+  background: var(--white); transition: all 0.25s var(--ease);
+}
+
+/* Color variants for option cards */
+.opt-card.oc-1 { background: rgba(168,197,173,0.1); color: var(--text); }
+.opt-card.oc-2 { background: rgba(107,143,113,0.08); color: var(--text); }
+.opt-card.oc-3 { background: rgba(184,150,58,0.06); color: var(--text); }
+.opt-card.oc-4 { background: rgba(200,220,200,0.15); color: var(--text); }
+.opt-card.oc-5 { background: var(--parchment); color: var(--text); border: 1px solid rgba(0,0,0,0.04); }
+.opt-card.oc-6 { background: rgba(90,153,96,0.06); color: var(--text); }
+
+.opt-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.opt-card.sel {
+  border-color: var(--sage); background: rgba(107,143,113,0.12);
+  box-shadow: 0 0 0 1px var(--sage), 0 4px 20px rgba(107,143,113,0.12);
+  transform: translateY(-1px);
+}
+.opt-card.sel .opt-indicator {
+  background: var(--sage); border-color: var(--sage);
+}
+.opt-card.sel .opt-indicator::after {
+  width: 8px; height: 8px;
+}
+
+/* ═══════════════════════════════════════════════════
+   OPTION CAPSULES — For multi-select (checkbox)
+   ═══════════════════════════════════════════════════ */
+.capsule-grid {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.capsule {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-radius: 50px;
+  cursor: pointer; transition: all 0.3s var(--ease);
+  font-size: 15px; font-weight: 500; color: var(--text2);
+  position: relative; overflow: hidden;
+  border: 1.5px solid transparent;
+}
+.capsule input { position: absolute; opacity: 0; width: 0; height: 0; }
+.capsule .cap-check {
+  width: 18px; height: 18px; border-radius: 6px; flex-shrink: 0;
+  border: 2px solid rgba(0,0,0,0.1); transition: all 0.25s var(--ease);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: transparent;
+}
+
+/* Color variants for capsules */
+.capsule.cc-1 { background: rgba(168,197,173,0.1); }
+.capsule.cc-2 { background: rgba(107,143,113,0.07); }
+.capsule.cc-3 { background: var(--parchment); border-color: rgba(0,0,0,0.04); }
+.capsule.cc-4 { background: rgba(184,150,58,0.05); }
+.capsule.cc-5 { background: rgba(200,220,200,0.12); }
+.capsule.cc-6 { background: rgba(90,153,96,0.05); }
+
+.capsule:hover { transform: translateY(-1px); box-shadow: 0 3px 12px rgba(0,0,0,0.05); }
+.capsule.sel {
+  border-color: var(--sage);
+  background: rgba(107,143,113,0.12);
+  box-shadow: 0 2px 12px rgba(107,143,113,0.1);
+}
+.capsule.sel .cap-check {
+  background: var(--sage); border-color: var(--sage); color: var(--white);
+}
+
+/* Primary "主" badge for capsules */
+.capsule .pb {
+  width: 26px; height: 26px; border-radius: 8px;
+  font-size: 11px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid rgba(184,150,58,0.15); color: rgba(184,150,58,0.25);
+  background: transparent; cursor: pointer; transition: all 0.25s var(--ease);
+  flex-shrink: 0; user-select: none; margin-left: auto;
+}
+.capsule .pb:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,150,58,0.06); }
+.capsule .pb.active {
+  background: var(--gold); color: var(--white);
+  border-color: var(--gold);
+  box-shadow: 0 2px 10px rgba(184,150,58,0.3);
+}
+
+/* ═══════════════════════════════════════════════════
+   RATING — Big color blocks
+   ═══════════════════════════════════════════════════ */
+.rate-block { }
+.rate-item {
+  display: flex; align-items: stretch; gap: 0;
+  margin-bottom: 8px; border-radius: var(--r-sm); overflow: hidden;
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.25s var(--ease);
+}
+.rate-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.rate-item .rate-q {
+  flex: 1; padding: 16px 20px; font-size: 16px; color: var(--text2);
+  min-width: 0; line-height: 1.5; font-weight: 400;
+  display: flex; align-items: center;
+}
+.rate-item .rate-opts {
+  display: flex; flex-shrink: 0;
+}
+.rate-item .rate-opts label {
+  display: flex; align-items: center; justify-content: center;
+  width: 52px; cursor: pointer;
+  transition: all 0.25s var(--ease);
+  position: relative;
+  border-left: 1px solid rgba(0,0,0,0.04);
+}
+.rate-item .rate-opts input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+/* Score color blocks */
+.rate-item .rate-opts label:nth-child(1) { background: rgba(200,220,200,0.2); }
+.rate-item .rate-opts label:nth-child(2) { background: rgba(168,197,173,0.2); }
+.rate-item .rate-opts label:nth-child(3) { background: rgba(107,143,113,0.2); }
+.rate-item .rate-opts label:nth-child(4) { background: rgba(74,124,80,0.2); }
+.rate-item .rate-opts label:hover:nth-child(1) { background: rgba(200,220,200,0.4); }
+.rate-item .rate-opts label:hover:nth-child(2) { background: rgba(168,197,173,0.4); }
+.rate-item .rate-opts label:hover:nth-child(3) { background: rgba(107,143,113,0.4); }
+.rate-item .rate-opts label:hover:nth-child(4) { background: rgba(74,124,80,0.4); }
+
+.rv {
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  font-size: 14px; font-weight: 600; color: var(--text3);
+  transition: all 0.25s var(--ease);
+}
+.rate-item .rate-opts input:checked ~ .rv {
+  background: var(--sage); color: var(--white);
+  box-shadow: 0 2px 8px rgba(107,143,113,0.3);
+  transform: scale(1.1);
+}
+
+/* Dark variant rate items */
+.qc-dark .rate-item, .qc-gradient .rate-item {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+}
+.qc-dark .rate-item .rate-q, .qc-gradient .rate-item .rate-q { color: rgba(255,255,255,0.8); }
+.qc-dark .rate-item .rate-opts label, .qc-gradient .rate-item .rate-opts label {
+  border-left-color: rgba(255,255,255,0.04);
+}
+.qc-dark .rate-item .rate-opts label:nth-child(1), .qc-gradient .rate-item .rate-opts label:nth-child(1) { background: rgba(200,220,200,0.04); }
+.qc-dark .rate-item .rate-opts label:nth-child(2), .qc-gradient .rate-item .rate-opts label:nth-child(2) { background: rgba(168,197,173,0.06); }
+.qc-dark .rate-item .rate-opts label:nth-child(3), .qc-gradient .rate-item .rate-opts label:nth-child(3) { background: rgba(107,143,113,0.08); }
+.qc-dark .rate-item .rate-opts label:nth-child(4), .qc-gradient .rate-item .rate-opts label:nth-child(4) { background: rgba(74,124,80,0.1); }
+.qc-dark .rv, .qc-gradient .rv { color: rgba(255,255,255,0.3); }
+
+/* Method rating — wider labels */
+.rate-item .rate-opts.wide label {
+  width: auto; padding: 0 14px; font-size: 12px;
+}
+.rate-item .rate-opts.wide .rv {
+  width: auto; padding: 4px 10px; border-radius: 12px; font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   TEXT INPUTS — Premium feel
+   ═══════════════════════════════════════════════════ */
+.qc input[type="text"], .qc input[type="number"], .qc textarea {
+  width: 100%; padding: 14px 18px;
+  border: 1.5px solid var(--linen2); border-radius: var(--r-sm);
+  font-size: 15px; font-family: var(--sans); color: var(--text);
+  background: var(--linen); transition: all 0.3s var(--ease);
+}
+.qc input:focus, .qc textarea:focus {
+  outline: none; border-color: var(--sage);
+  box-shadow: 0 0 0 4px rgba(107,143,113,0.06);
+  background: var(--white);
+}
+.qc input::placeholder, .qc textarea::placeholder { color: var(--text4); }
+.qc textarea { resize: vertical; min-height: 88px; line-height: 1.7; }
+
+/* Dark card inputs */
+.qc-dark input[type="text"], .qc-dark input[type="number"], .qc-dark textarea,
+.qc-gradient input[type="text"], .qc-gradient input[type="number"], .qc-gradient textarea {
+  background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18);
+  color: var(--parchment);
+}
+.qc-dark input:focus, .qc-dark textarea:focus,
+.qc-gradient input:focus, .qc-gradient textarea:focus {
+  background: rgba(255,255,255,0.06); border-color: var(--sage);
+  box-shadow: 0 0 0 4px rgba(107,143,113,0.08);
+}
+.qc-dark input::placeholder, .qc-dark textarea::placeholder,
+.qc-gradient input::placeholder, .qc-gradient textarea::placeholder { color: rgba(255,255,255,0.45); }
+
+.irow { display: flex; flex-wrap: wrap; gap: 16px; }
+.irow .ig { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--text2); font-weight: 500; }
+.irow .ig input { width: 72px; text-align: center; }
+
+/* Dark irow */
+.qc-dark .irow .ig, .qc-gradient .irow .ig { color: rgba(255,255,255,0.80); }
+
+/* ═══════════════════════════════════════════════════
+   NAV BUTTONS
+   ═══════════════════════════════════════════════════ */
+.nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 44px; padding-top: 28px;
+}
+.n-prev {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 28px; border-radius: 60px;
+  background: var(--white); border: 1.5px solid var(--linen2);
+  color: var(--text3); font-size: 14px; font-weight: 500;
+  font-family: var(--sans); cursor: pointer; transition: all 0.3s var(--ease);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.n-prev:hover { border-color: var(--sage); color: var(--text2); box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+.n-next {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 36px; border-radius: 60px; border: none;
+  background: linear-gradient(135deg, var(--olive), var(--olive3));
+  color: var(--parchment);
+  font-size: 14px; font-weight: 600; font-family: var(--sans);
+  cursor: pointer; transition: all 0.35s var(--ease);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  position: relative; overflow: hidden;
+}
+.n-next::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--sage), var(--green-a));
+  opacity: 0; transition: opacity 0.3s;
+}
+.n-next:hover::before { opacity: 1; }
+.n-next span, .n-next svg { position: relative; z-index: 1; }
+.n-next:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(107,143,113,0.2); }
+.n-next svg { transition: transform 0.3s; }
+.n-next:hover svg { transform: translateX(3px); }
+
+/* ═══════════════════════════════════════════════════
+   DONE PAGE
+   ═══════════════════════════════════════════════════ */
+.done {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: calc(100vh - 100px); text-align: center;
+  position: relative; z-index: 1;
+}
+.done-check {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), var(--green-a));
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(107,143,113,0.3), 0 0 60px rgba(107,143,113,0.1);
+  animation: doneCheck 0.8s var(--ease-bounce) 0.3s both;
+}
+@keyframes doneCheck {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.done-check svg { width: 34px; height: 34px; }
+.done h2 {
+  font-family: var(--serif); font-size: clamp(28px, 5vw, 38px);
+  font-weight: 800; color: var(--parchment); margin-bottom: 14px; letter-spacing: -0.5px;
+}
+.done p { font-size: 15px; color: rgba(245,241,234,0.70); margin-bottom: 40px; line-height: 2; }
+
+/* ═══════════════════════════════════════════════════
+   INLINE FORM LABEL
+   ═══════════════════════════════════════════════════ */
+.field-label {
+  font-size: 15px; color: var(--text3); display: block;
+  margin-bottom: 8px; font-weight: 500;
+}
+.qc-dark .field-label, .qc-gradient .field-label { color: rgba(255,255,255,0.70); }
+.field-group { margin-bottom: 18px; }
+.field-group:last-child { margin-bottom: 0; }
+
+/* Inline mini radio group */
+.mini-radio-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.mini-radio {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: var(--r-xs);
+  cursor: pointer; transition: all 0.25s var(--ease);
+  font-size: 13px; font-weight: 500; color: var(--text2);
+  background: var(--parchment); border: 1.5px solid var(--linen2);
+}
+.mini-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+.mini-radio:hover { border-color: var(--sage); }
+.mini-radio.sel { border-color: var(--sage); background: rgba(107,143,113,0.08); color: var(--text); }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .welcome h1 { font-size: 38px; letter-spacing: -1px; }
+  .w-scores { grid-template-columns: repeat(2, 1fr); }
+  .pg-in { padding: 36px 16px 80px; }
+  .sec-banner { margin: -36px -16px 28px; padding: 40px 20px 32px; }
+  .sec-banner h2 { font-size: 24px; }
+  .bento { grid-template-columns: 1fr; }
+  .bento .half { grid-column: 1; }
+  .qc { padding: 24px 18px; }
+  .opt-grid { grid-template-columns: 1fr; }
+  .rate-item .rate-q { font-size: 14px; padding: 12px 14px; }
+  .rate-item .rate-opts label { width: 42px; }
+  .rate-item .rate-opts.wide label { padding: 0 8px; font-size: 10px; }
+  .irow { flex-direction: column; gap: 12px; }
+  .irow .ig { width: 100%; }
+  .irow .ig input { flex: 1; }
+  .step-badge { right: 12px; font-size: 10px; }
+  .capsule { padding: 10px 16px; font-size: 14px; }
+  .hero-sphere { display: none; }
+}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.06); border-radius: 3px; }
+.pg-dark::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); }
+</style>
+</head>
+<body>
+
+<div class="progress-wrap dark" id="pw"><div class="progress-fill" id="pf"></div></div>
+<div class="step-badge dark" id="sb" style="opacity:0">01  部分</div>
+
+<div class="pg-brand">大萌博士 · 睡眠实验室</div>
+<div class="pages">
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 0 — WELCOME (DNA Helix)
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-welcome active" data-p="0">
+  <!-- Top bar -->
+  <div class="w-meta">
+    <span>大萌博士</span>
+    <span class="w-blink">睡眠实验室</span>
+    <span>Sleep Lab</span>
+  </div>
+  <!-- Fades -->
+  <div class="w-fade-top"></div>
+  <div class="w-fade-bottom"></div>
+  <!-- Mouse glow -->
+  <div class="w-glow" id="wGlow"></div>
+  <!-- Content -->
+  <div class="w-content">
+    <div class="w-text">
+      <h1>睡眠状态<br><em>快速评估</em></h1>
+      <div class="w-desc">帮你快速找到睡眠卡点<br>评分：0 = 基本没有 / 1 = 有一点/偶尔 / 2 = 经常/明显影响</div>
+      <div class="w-scores-row">
+        <div class="w-sc-mini"><span class="w-sc-n">0</span>基本没有</div>
+        <div class="w-sc-mini"><span class="w-sc-n">1</span>有一点/偶尔</div>
+        <div class="w-sc-mini"><span class="w-sc-n">2</span>经常/明显</div>
+      </div>
+    </div>
+    <div class="helix-box"><div class="helix" id="helix"></div></div>
+  </div>
+  <!-- CTA -->
+  <div class="w-cta">
+    <span class="w-cta-label">预计 5 分钟</span>
+    <button class="w-cta-btn" onclick="go(1)">
+      开始评估
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 1 — 先抓主问题
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="1">
+<div class="pg-in">
+  <!-- Decorative orbs -->
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 01 部分</div>
+    <h2>先抓主问题</h2>
+    <div class="sec-d">基础信息与核心困扰</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 基础信息 -->
+    <div class="qc qc-dark full">
+      <div class="q-title"><span class="q-n">1</span>基础信息</div>
+      <div class="irow">
+        <div class="ig"><span>年龄</span><input id="f_age" type="number" placeholder="25"></div>
+        <div class="ig"><span>性别</span><input id="f_gender" type="text" style="width:56px" placeholder="女"></div>
+        <div class="ig"><span>身高</span><input id="f_height" type="number" placeholder="165"> cm</div>
+        <div class="ig"><span>体重</span><input id="f_weight" type="number" placeholder="55"> kg</div>
+      </div>
+      <div class="field-group" style="margin-top:16px;">
+        <label class="field-label">睡眠问题持续时间</label>
+        <div class="mini-radio-row">
+          <label class="mini-radio" onclick="selMini(this,'dur')"><input type="radio" name="dur" value="<1月"><span>＜1个月</span></label>
+          <label class="mini-radio" onclick="selMini(this,'dur')"><input type="radio" name="dur" value="1-3月"><span>1-3个月</span></label>
+          <label class="mini-radio" onclick="selMini(this,'dur')"><input type="radio" name="dur" value="3-12月"><span>3-12个月</span></label>
+          <label class="mini-radio" onclick="selMini(this,'dur')"><input type="radio" name="dur" value=">1年"><span>＞1年</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full">
+      <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    </div>
+
+    <!-- Q2: 最困扰的睡眠问题 — 最多选2项 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">2</span>现在最困扰你的睡眠问题</div>
+      <div class="q-sub">最多选 2 项，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>入睡困难</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜里容易醒</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>凌晨 / 清晨容易醒</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>睡得浅 / 多梦</span><div class="pb">主</div></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>睡了也不恢复</span><div class="pb">主</div></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>白天状态差</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>睡眠忽好忽坏</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>一调整、吃补剂或改变作息就更乱</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+    <!-- Q3: 最想先改善什么 — 最多选2项 -->
+    <div class="qc qc-cream full">
+      <div class="q-title"><span class="q-n">3</span>你最想先改善什么</div>
+      <div class="q-sub">最多选 2 项，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>更快睡着</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜里少醒</span><div class="pb">主</div></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>醒后更容易再睡</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>不要太早醒</span><div class="pb">主</div></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>醒来更清爽</span><div class="pb">主</div></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>白天更有精神</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>减少药物补剂依赖</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先稳定一点，不要越调越乱</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+    <!-- Q4: 开放问题 -->
+    <div class="qc qc-gold full">
+      <div class="q-title"><span class="q-n">4</span>开放补充</div>
+      <div class="field-group">
+        <label class="field-label">这次睡眠问题让你最担心的后果是</label>
+        <input type="text" placeholder="例：长期好不了、影响工作学习">
+      </div>
+      <div class="field-group">
+        <label class="field-label">最希望先改善的白天状态或身体感受</label>
+        <input type="text" placeholder="例：白天精神、情绪稳定">
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(0)">&larr; 返回</button>
+    <button class="n-next" onclick="go(2)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 2 — 睡眠基本情况
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="2">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 02 部分</div>
+    <h2>睡眠基本情况</h2>
+    <div class="sec-d">作息、时长与睡眠表现</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 作息与睡眠时长 -->
+    <div class="qc qc-dark full">
+      <div class="q-title"><span class="q-n">1</span>作息与睡眠时长</div>
+      <div class="irow">
+        <div class="ig"><span>通常上床</span><input id="f_bed_time" type="text" style="width:56px" placeholder="23"> 点</div>
+        <div class="ig"><span>通常睡着</span><input id="f_sleep_time" type="text" style="width:56px" placeholder="24"> 点</div>
+        <div class="ig"><span>通常起床</span><input id="f_wake_time" type="text" style="width:56px" placeholder="7"> 点</div>
+      </div>
+      <div class="field-group" style="margin-top:16px;">
+        <label class="field-label">平均睡眠时长</label>
+        <div class="mini-radio-row">
+          <label class="mini-radio" onclick="selMini(this,'tst')"><input type="radio" name="tst" value="<4小时"><span>＜4小时</span></label>
+          <label class="mini-radio" onclick="selMini(this,'tst')"><input type="radio" name="tst" value="4-6小时"><span>4-6小时</span></label>
+          <label class="mini-radio" onclick="selMini(this,'tst')"><input type="radio" name="tst" value="6-7小时"><span>6-7小时</span></label>
+          <label class="mini-radio" onclick="selMini(this,'tst')"><input type="radio" name="tst" value="7-8小时"><span>7-8小时</span></label>
+          <label class="mini-radio" onclick="selMini(this,'tst')"><input type="radio" name="tst" value=">8小时"><span>＞8小时</span></label>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:16px;">
+        <label class="field-label">作息稳定度</label>
+        <div class="mini-radio-row">
+          <label class="mini-radio" onclick="selMini(this,'sched')"><input type="radio" name="sched" value="基本稳定"><span>基本稳定</span></label>
+          <label class="mini-radio" onclick="selMini(this,'sched')"><input type="radio" name="sched" value="工作日稳定周末后移"><span>工作日稳定周末后移</span></label>
+          <label class="mini-radio" onclick="selMini(this,'sched')"><input type="radio" name="sched" value="经常不固定"><span>经常不固定</span></label>
+          <label class="mini-radio" onclick="selMini(this,'sched')"><input type="radio" name="sched" value="倒班夜班跨时区"><span>倒班/夜班/经常跨时区</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full">
+      <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    </div>
+
+    <!-- Q2: 睡眠表现评分 -->
+    <div class="qc qc-gradient full">
+      <div class="q-title"><span class="q-n">2</span>睡眠表现评分</div>
+      <div class="q-sub">0 = 基本没有 &nbsp;|&nbsp; 1 = 有一点 / 偶尔 &nbsp;|&nbsp; 2 = 经常 / 明显影响</div>
+      <div class="rate-block">
+        <div class="rate-item"><div class="rate-q">【睡前 / 入睡】入睡超过 30 分钟</div><div class="rate-opts"><label><input type="radio" name="s1" value="0"><div class="rv">0</div></label><label><input type="radio" name="s1" value="1"><div class="rv">1</div></label><label><input type="radio" name="s1" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【夜间 / 清晨】夜里醒来 2 次或以上</div><div class="rate-opts"><label><input type="radio" name="s2" value="0"><div class="rv">0</div></label><label><input type="radio" name="s2" value="1"><div class="rv">1</div></label><label><input type="radio" name="s2" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【夜间 / 清晨】醒后超过 30 分钟难再睡</div><div class="rate-opts"><label><input type="radio" name="s3" value="0"><div class="rv">0</div></label><label><input type="radio" name="s3" value="1"><div class="rv">1</div></label><label><input type="radio" name="s3" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【夜间 / 清晨】凌晨 / 清晨比预期早醒 1 小时以上</div><div class="rate-opts"><label><input type="radio" name="s4" value="0"><div class="rv">0</div></label><label><input type="radio" name="s4" value="1"><div class="rv">1</div></label><label><input type="radio" name="s4" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【睡眠质量 / 梦】睡得浅，容易被声音 / 光 / 温度影响</div><div class="rate-opts"><label><input type="radio" name="s5" value="0"><div class="rv">0</div></label><label><input type="radio" name="s5" value="1"><div class="rv">1</div></label><label><input type="radio" name="s5" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【睡眠质量 / 梦】梦多、梦清晰、梦像在处理事情</div><div class="rate-opts"><label><input type="radio" name="s6" value="0"><div class="rv">0</div></label><label><input type="radio" name="s6" value="1"><div class="rv">1</div></label><label><input type="radio" name="s6" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【醒后 / 白天】睡够了但不解乏</div><div class="rate-opts"><label><input type="radio" name="s7" value="0"><div class="rv">0</div></label><label><input type="radio" name="s7" value="1"><div class="rv">1</div></label><label><input type="radio" name="s7" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【醒后 / 白天】白天困、低迷、启动慢</div><div class="rate-opts"><label><input type="radio" name="s8" value="0"><div class="rv">0</div></label><label><input type="radio" name="s8" value="1"><div class="rv">1</div></label><label><input type="radio" name="s8" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【醒后 / 白天】白天低迷但晚上反而清醒</div><div class="rate-opts"><label><input type="radio" name="s9" value="0"><div class="rv">0</div></label><label><input type="radio" name="s9" value="1"><div class="rv">1</div></label><label><input type="radio" name="s9" value="2"><div class="rv">2</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">【波动】睡眠忽好忽坏，受变量影响很大</div><div class="rate-opts"><label><input type="radio" name="s10" value="0"><div class="rv">0</div></label><label><input type="radio" name="s10" value="1"><div class="rv">1</div></label><label><input type="radio" name="s10" value="2"><div class="rv">2</div></label></div></div>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(1)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(3)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 3 — 你更像哪一种睡不好
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="3">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 03 部分</div>
+    <h2>你更像哪一种睡不好</h2>
+    <div class="sec-d">最多选 3 项，标最主要</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 睡前/入睡时更像 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">1</span>睡前 / 入睡时更像</div>
+      <div class="q-sub">可多选，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>脑子停不下来</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>身体放不松</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>对环境敏感</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>晚上反而精神</span><div class="pb">主</div></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>越累越睡不着</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+    <!-- Q2: 夜间/醒来时更像 -->
+    <div class="qc qc-cream full">
+      <div class="q-title"><span class="q-n">2</span>夜间 / 醒来时更像</div>
+      <div class="q-sub">可多选，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜里自然醒</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜里被身体叫醒（热 / 尿 / 不适）</span><div class="pb">主</div></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>多梦 / 工作梦 / 情绪梦</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>早醒后脑子秒上线</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full">
+      <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    </div>
+
+    <!-- Q3: 醒后/调整后更像 -->
+    <div class="qc qc-white full">
+      <div class="q-title"><span class="q-n">3</span>醒后 / 调整后更像</div>
+      <div class="q-sub">可多选，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>睡了但像没修好</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>一调整就乱</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(2)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(4)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════
+     PAGE 4 — 关键影响因素
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="4">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 04 部分</div>
+    <h2>关键影响因素</h2>
+    <div class="sec-d">过去 4 周，影响程度：无 / 有一点 / 明显</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 睡前刺激/压力 -->
+    <div class="qc qc-gradient full">
+      <div class="q-title"><span class="q-n">1</span>睡前刺激 / 压力</div>
+      <div class="rate-block">
+        <div class="rate-item"><div class="rate-q">睡前刷手机 / 短视频</div><div class="rate-opts"><label><input type="radio" name="e1" value="0"><div class="rv">无</div></label><label><input type="radio" name="e1" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e1" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">睡前工作 / 处理消息</div><div class="rate-opts"><label><input type="radio" name="e2" value="0"><div class="rv">无</div></label><label><input type="radio" name="e2" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e2" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">压力 / 责任 / 待命感</div><div class="rate-opts"><label><input type="radio" name="e3" value="0"><div class="rv">无</div></label><label><input type="radio" name="e3" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e3" value="2"><div class="rv">明显</div></label></div></div>
+      </div>
+    </div>
+
+    <!-- Q2: 饮食/运动/补剂药物 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">2</span>饮食 / 运动 / 补剂药物</div>
+      <div class="rate-block">
+        <div class="rate-item"><div class="rate-q">咖啡 / 浓茶 / 能量饮料</div><div class="rate-opts"><label><input type="radio" name="e4" value="0"><div class="rv">无</div></label><label><input type="radio" name="e4" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e4" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">酒精 / 夜宵 / 晚餐太晚或太重</div><div class="rate-opts"><label><input type="radio" name="e5" value="0"><div class="rv">无</div></label><label><input type="radio" name="e5" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e5" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">晚间运动</div><div class="rate-opts"><label><input type="radio" name="e6" value="0"><div class="rv">无</div></label><label><input type="radio" name="e6" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e6" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">补剂 / 助眠药 / 保健品叠加</div><div class="rate-opts"><label><input type="radio" name="e7" value="0"><div class="rv">无</div></label><label><input type="radio" name="e7" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e7" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">空腹 / 少吃主食 / 低碳控糖后夜醒</div><div class="rate-opts"><label><input type="radio" name="e8" value="0"><div class="rv">无</div></label><label><input type="radio" name="e8" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e8" value="2"><div class="rv">明显</div></label></div></div>
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full"><div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div></div>
+
+    <!-- Q3: 环境/作息变化 -->
+    <div class="qc qc-white full">
+      <div class="q-title"><span class="q-n">3</span>环境 / 作息变化</div>
+      <div class="rate-block">
+        <div class="rate-item"><div class="rate-q">噪音 / 光线 / 温度 / 湿度 / 床品</div><div class="rate-opts"><label><input type="radio" name="e9" value="0"><div class="rv">无</div></label><label><input type="radio" name="e9" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e9" value="2"><div class="rv">明显</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">出差 / 换环境 / 作息漂移</div><div class="rate-opts"><label><input type="radio" name="e10" value="0"><div class="rv">无</div></label><label><input type="radio" name="e10" value="1"><div class="rv">有一点</div></label><label><input type="radio" name="e10" value="2"><div class="rv">明显</div></label></div></div>
+      </div>
+    </div>
+
+    <!-- Q4: 填空 -->
+    <div class="qc qc-gold full">
+      <div class="q-title"><span class="q-n">4</span>生活习惯填写</div>
+      <div class="irow">
+        <div class="ig"><span>咖啡因每天</span><input id="f_caf_count" type="text" style="width:48px" placeholder="2"> 次</div>
+        <div class="ig"><span>最晚</span><input id="f_caf_latest" type="text" style="width:48px" placeholder="15"> 点</div>
+      </div>
+      <div class="irow" style="margin-top:12px;">
+        <div class="ig"><span>饮酒每周</span><input id="f_alc_count" type="text" style="width:48px" placeholder="1"> 次</div>
+        <div class="ig"><span>晚上饮酒</span><input id="f_alc_eve" type="text" style="width:56px" placeholder="是/否"></div>
+      </div>
+      <div class="irow" style="margin-top:12px;">
+        <div class="ig"><span>每周运动</span><input id="f_exe_count" type="text" style="width:48px" placeholder="3"> 次</div>
+        <div class="ig"><span>最晚</span><input id="f_exe_latest" type="text" style="width:48px" placeholder="20"> 点</div>
+      </div>
+      <div class="irow" style="margin-top:12px;">
+        <div class="ig"><span>晚餐通常</span><input id="f_dinner_time" type="text" style="width:48px" placeholder="18"> 点</div>
+        <div class="ig"><span>睡前吃东西</span>
+          <label class="mini-radio" onclick="selMini(this,'bf')" style="margin:0 4px;"><input type="radio" name="bf" value="不吃"><span>不吃</span></label>
+          <label class="mini-radio" onclick="selMini(this,'bf')" style="margin:0 4px;"><input type="radio" name="bf" value="偶尔"><span>偶尔</span></label>
+          <label class="mini-radio" onclick="selMini(this,'bf')" style="margin:0 4px;"><input type="radio" name="bf" value="经常"><span>经常</span></label>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(3)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(5)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 5 — 身体信号
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="5">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 05 部分</div>
+    <h2>身体信号</h2>
+    <div class="sec-d">最多选 5 项，标最主要</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 身体信号 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">1</span>以下身体信号是否出现过</div>
+      <div class="q-sub">最多选 5 项，点击金色「主」标记最主要项</div>
+      <div class="capsule-grid mg">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>心跳明显 / 心慌</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>呼吸浅 / 胸口紧</span><div class="pb">主</div></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>热醒 / 出汗 / 发热</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>冷醒 / 手脚冷</span><div class="pb">主</div></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>口干 / 鼻干 / 喉咙干</span><div class="pb">主</div></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>鼻塞 / 打鼾 / 张口呼吸</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>反酸 / 胃不舒服 / 胀气</span><div class="pb">主</div></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>饥饿 / 空腹感</span><div class="pb">主</div></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜尿明显</span><div class="pb">主</div></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>麻 / 抽腿不宁 / 身体疼痛</span><div class="pb">主</div></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>晨起头沉 / 身体困重</span><div class="pb">主</div></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>活动后更精神</span><div class="pb">主</div></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>活动后更累 / 恢复慢</span><div class="pb">主</div></label>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(4)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(6)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 6 — 睡眠监测信息
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="6">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 06 部分</div>
+    <h2>睡眠监测信息</h2>
+    <div class="sec-d">没有设备可跳过</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 监测结果 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">1</span>最近 2 周监测结果更像（多选）</div>
+      <div class="capsule-grid">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>深睡少</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>浅睡多</span></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>REM / 做梦时间多</span></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>REM 少或后半夜睡眠被切断</span></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜醒 / 清醒次数多</span></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>总时长够但醒来不恢复</span></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>作息和睡眠结构波动很大</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>数据看起来还行但体感很差</span></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>不确定怎么看</span></label>
+      </div>
+    </div>
+
+    <!-- Q2: 监测数据 -->
+    <div class="qc qc-dark full">
+      <div class="q-title"><span class="q-n">2</span>监测数据（选填）</div>
+      <div class="irow">
+        <div class="ig"><span>平均总睡眠</span><input id="f_mon_total" type="text" style="width:56px" placeholder="6.5"> 小时</div>
+        <div class="ig"><span>平均深睡</span><input id="f_mon_deep" type="text" style="width:56px" placeholder="1.5"> 小时</div>
+      </div>
+      <div class="irow" style="margin-top:12px;">
+        <div class="ig"><span>深睡占比</span><input id="f_mon_deep_pct" type="text" style="width:48px" placeholder="20"> %</div>
+        <div class="ig"><span>平均 REM</span><input id="f_mon_rem" type="text" style="width:56px" placeholder="1.5"> 小时</div>
+        <div class="ig"><span>REM 占比</span><input id="f_mon_rem_pct" type="text" style="width:48px" placeholder="20"> %</div>
+      </div>
+      <div class="irow" style="margin-top:12px;">
+        <div class="ig"><span>平均清醒</span><input id="f_mon_wake" type="text" style="width:48px" placeholder="3"> 次</div>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(5)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(7)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 7 — 方法、补剂与药物
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="7">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 07 部分</div>
+    <h2>方法、补剂与药物</h2>
+    <div class="sec-d">你试过哪些，效果如何</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 你试过哪些方法 -->
+    <div class="qc qc-white full">
+      <div class="q-title"><span class="q-n">1</span>你试过哪些方法</div>
+      <div class="glass-accent" style="margin-top:0;">
+        <p>请选择每种方法的效果：<strong>有帮助</strong> / <strong>没感觉</strong> / <strong>反而更差</strong> / <strong>没试过</strong></p>
+      </div>
+      <div class="rate-block" style="margin-top:16px;">
+        <div class="rate-item"><div class="rate-q">早睡 / 调整作息</div><div class="rate-opts wide"><label><input type="radio" name="m1" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m1" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m1" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m1" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">减少手机 / 降光</div><div class="rate-opts wide"><label><input type="radio" name="m2" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m2" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m2" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m2" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">泡脚 / 热水澡</div><div class="rate-opts wide"><label><input type="radio" name="m3" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m3" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m3" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m3" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">呼吸 / 冥想 / 身体扫描</div><div class="rate-opts wide"><label><input type="radio" name="m4" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m4" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m4" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m4" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">运动</div><div class="rate-opts wide"><label><input type="radio" name="m5" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m5" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m5" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m5" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">调整饮食 / 控糖低碳</div><div class="rate-opts wide"><label><input type="radio" name="m6" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m6" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m6" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m6" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">助眠补剂 / 保健品</div><div class="rate-opts wide"><label><input type="radio" name="m7" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m7" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m7" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m7" value="没试过"><div class="rv">没试过</div></label></div></div>
+        <div class="rate-item"><div class="rate-q">助眠药 / 安眠药 / 镇静类药物</div><div class="rate-opts wide"><label><input type="radio" name="m8" value="有帮助"><div class="rv">有帮助</div></label><label><input type="radio" name="m8" value="没感觉"><div class="rv">没感觉</div></label><label><input type="radio" name="m8" value="反而更差"><div class="rv">更差</div></label><label><input type="radio" name="m8" value="没试过"><div class="rv">没试过</div></label></div></div>
+      </div>
+    </div>
+
+    <!-- Q2: 开放填写 -->
+    <div class="qc qc-gold full">
+      <div class="q-title"><span class="q-n">2</span>方法使用补充</div>
+      <div class="field-group">
+        <label class="field-label">确定有帮助的方法或补剂</label>
+        <input id="f_method_good" type="text" placeholder="例：镁、泡脚、呼吸法">
+      </div>
+      <div class="field-group">
+        <label class="field-label">确定不适合 / 用了更差的</label>
+        <input id="f_method_bad" type="text" placeholder="例：褪黑素、睡眠限制">
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full"><div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div></div>
+
+    <!-- Q3: 助眠药/安眠药使用情况 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">3</span>是否正在使用助眠药 / 安眠药 / 镇静类药物</div>
+      <div class="mini-radio-row">
+        <label class="mini-radio" onclick="selMini(this,'dep')"><input type="radio" name="dep" value="没有"><span>没有</span></label>
+        <label class="mini-radio" onclick="selMini(this,'dep')"><input type="radio" name="dep" value="偶尔"><span>偶尔</span></label>
+        <label class="mini-radio" onclick="selMini(this,'dep')"><input type="radio" name="dep" value="经常"><span>经常</span></label>
+        <label class="mini-radio" onclick="selMini(this,'dep')"><input type="radio" name="dep" value="已连续使用≥3个月"><span>已连续使用 ≥3 个月</span></label>
+        <label class="mini-radio" onclick="selMini(this,'dep')"><input type="radio" name="dep" value="医生指导下使用"><span>正在医生指导下使用</span></label>
+      </div>
+    </div>
+
+    <!-- Q4: 药物使用相关问题 -->
+    <div class="qc qc-cream full">
+      <div class="q-title"><span class="q-n">4</span>如正在使用，是否出现过</div>
+      <div class="capsule-grid">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>剂量越来越不够</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>停药或减量后明显更差</span></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>换药后更乱</span></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>晚上配合酒精 / 保健品</span></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>无上述情况</span></label>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(6)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(8)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 8 — 风险提示
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="8">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 08 部分</div>
+    <h2>风险提示</h2>
+    <div class="sec-d">明显存在请勾选</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 风险信号 -->
+    <div class="qc qc-gradient full">
+      <div class="q-title"><span class="q-n">1</span>以下情况是否明显存在</div>
+      <div class="q-sub">可多选</div>
+      <div class="capsule-grid">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>严重打鼾</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>睡觉中憋醒 / 疑似呼吸暂停</span></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>夜间心悸明显</span></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>反酸 / 胃食管反流明显影响睡眠</span></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>腿不宁明显</span></label>
+        <label class="capsule cc-6" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>情绪低落或焦虑紧张已明显影响生活</span></label>
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>白天功能明显受影响</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>近期体重波动明显</span></label>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(7)">&larr; 上一步</button>
+    <button class="n-next" onclick="go(9)"><span>下一步</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 9 — 最后补充
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-light" data-p="9">
+<div class="pg-in">
+  <div class="deco-orb-1"></div>
+  <div class="deco-orb-2"></div>
+  <div class="deco-orb-3"></div>
+
+  <div class="sec-banner"><div class="sec-brand">大萌博士</div>
+    <div class="banner-sphere"></div>
+    <div class="banner-sphere-2"></div>
+    <div class="sec-tag">第 09 部分</div>
+    <h2>最后补充</h2>
+    <div class="sec-d">帮助更准确地定制方案</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Q1: 你认为最影响睡眠的3个因素 -->
+    <div class="qc qc-gold full">
+      <div class="q-title"><span class="q-n">1</span>你觉得最影响你睡眠的 3 个因素是</div>
+      <div class="irow">
+        <div class="ig"><span>1.</span><input id="f_cause1" type="text" style="width:180px" placeholder="例：压力大、作息不规律"></div>
+      </div>
+      <div class="irow" style="margin-top:8px;">
+        <div class="ig"><span>2.</span><input id="f_cause2" type="text" style="width:180px" placeholder="例：睡前玩手机"></div>
+      </div>
+      <div class="irow" style="margin-top:8px;">
+        <div class="ig"><span>3.</span><input id="f_cause3" type="text" style="width:180px" placeholder="例：早醒后脑子转"></div>
+      </div>
+    </div>
+
+    <!-- Q2: 方案偏向 -->
+    <div class="qc qc-sage full">
+      <div class="q-title"><span class="q-n">2</span>你希望这次方案更偏向</div>
+      <div class="capsule-grid">
+        <label class="capsule cc-1" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先快速稳定</span></label>
+        <label class="capsule cc-2" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先找清楚原因</span></label>
+        <label class="capsule cc-3" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先减少调整后不舒服的情况</span></label>
+        <label class="capsule cc-4" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先改善白天状态</span></label>
+        <label class="capsule cc-5" onclick="selCap(this)"><input type="checkbox"><div class="cap-check">&#10003;</div><span>先减少药物 / 补剂依赖</span></label>
+      </div>
+    </div>
+
+    <!-- Decorative divider -->
+    <div class="full"><div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div></div>
+
+    <!-- Q3: 其他补充 + 联系方式 -->
+    <div class="qc qc-dark full">
+      <div class="q-title"><span class="q-n">3</span>其他补充与联系方式</div>
+      <div class="q-sub" style="color:rgba(255,255,255,0.65);">用于发送个性化评估报告，信息仅用于此目的</div>
+      <div class="field-group" style="margin-top:16px;">
+        <label class="field-label">其他补充说明（选填）</label>
+        <textarea id="f_other" placeholder="任何你觉得重要但没机会说的"></textarea>
+      </div>
+      <div class="irow" style="margin-top:16px;">
+        <div class="ig"><span>微信号</span><input id="f_wechat" type="text" style="width:140px" placeholder="你的微信号"></div>
+        <div class="ig"><span>手机号</span><input id="f_phone" type="text" style="width:140px" placeholder="选填"></div>
+      </div>
+    </div>
+
+    <!-- Final note -->
+    <div class="qc qc-cream full">
+      <div class="glass-accent">
+        <p>填写完成后，大萌博士会根据你的整体情况生成<strong>个性化睡眠评估报告</strong>。通常在收到表单后 <strong>3-5 个工作日</strong>内完成。</p>
+      </div>
+    </div>
+
+  </div><!-- /bento -->
+
+  <div class="nav">
+    <button class="n-prev" onclick="go(8)">&larr; 上一步</button>
+    <button class="n-next" id="submitBtn" onclick="submitToFeishu()"><span>提交评估</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 10 — DONE
+     ═══════════════════════════════════════════════════ -->
+<div class="pg pg-dark" data-p="10">
+<div class="pg-in">
+  <div class="done">
+    <div class="hero-sphere hero-sphere-1"></div>
+    <div class="hero-sphere hero-sphere-2"></div>
+
+    <div class="done-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
+    </div>
+    <h2>评估完成</h2>
+    <p>感谢你的耐心填写<br>我们会根据你的情况为你定制专属睡眠调理方案</p>
+    <button class="btn-go" onclick="go(0)">
+      返回首页
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <div style="margin-top:48px;font-size:12px;color:rgba(255,255,255,0.15);letter-spacing:1.5px;">大萌博士 · 睡眠实验室</div>
+  </div>
+</div>
+</div>
+
+</div><!-- /pages -->
+
+<script>
+let cur = 0;
+const T = 9;
+
+function go(n) {
+  const c = document.querySelector('.pg.active');
+  const t = document.querySelector('[data-p="'+n+'"]');
+  if (!t || t === c) return;
+  const fwd = n > cur;
+
+  // Exit current
+  c.classList.remove('active');
+  c.style.transition = 'opacity 0.4s, transform 0.4s';
+  c.style.opacity = '0';
+  c.style.transform = fwd ? 'translateY(-20px)' : 'translateY(20px)';
+  c.style.pointerEvents = 'none';
+
+  // Prepare target
+  t.style.transition = 'none';
+  t.style.opacity = '0';
+  t.style.transform = fwd ? 'translateY(30px)' : 'translateY(-30px)';
+  t.scrollTop = 0;
+
+  // Reset card animations for target
+  t.querySelectorAll('.qc').forEach(q => {
+    q.style.animation = 'none';
+    q.offsetHeight; // force reflow
+    q.style.animation = '';
+  });
+
+  requestAnimationFrame(() => { requestAnimationFrame(() => {
+    t.style.transition = 'opacity 0.6s cubic-bezier(.25,.8,.25,1), transform 0.6s cubic-bezier(.25,.8,.25,1)';
+    t.classList.add('active');
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+    t.style.pointerEvents = 'auto';
+  }); });
+
+  cur = n;
+  const dk = t.classList.contains('pg-dark');
+  document.getElementById('pw').className = 'progress-wrap ' + (dk ? 'dark' : 'light');
+  document.getElementById('sb').className = 'step-badge ' + (dk ? 'dark' : 'light');
+  document.getElementById('sb').style.opacity = n > 0 && n <= T ? '1' : '0';
+  document.getElementById('sb').textContent = String(n).padStart(2,'0') + ' / ' + T;
+  document.getElementById('pf').style.width = (n <= 0 ? 0 : Math.min(Math.round(n/T*100),100)) + '%';
+}
+
+/* ─── Radio card selection ─── */
+function selRadio(el, name) {
+  const radio = el.querySelector('input[type="radio"]');
+  if (radio) radio.checked = true;
+  // Remove sel from siblings
+  const parent = el.parentElement;
+  parent.querySelectorAll('.opt-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  // Auto-scroll to next question
+  autoScroll(el);
+}
+
+/* ─── Capsule checkbox selection ─── */
+function selCap(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (cb) {
+    cb.checked = !cb.checked;
+    el.classList.toggle('sel', cb.checked);
+    // Remove primary badge if unchecked
+    if (!cb.checked) {
+      const pb = el.querySelector('.pb');
+      if (pb) pb.classList.remove('active');
+    }
+  }
+}
+
+/* ─── Mini radio selection ─── */
+function selMini(el, name) {
+  const radio = el.querySelector('input[type="radio"]');
+  if (radio) radio.checked = true;
+  const parent = el.parentElement;
+  parent.querySelectorAll('.mini-radio').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  autoScroll(el);
+}
+
+/* ─── Auto-scroll to next question ─── */
+function autoScroll(el) {
+  const qc = el.closest('.qc');
+  if (qc) {
+    const next = qc.nextElementSibling;
+    if (next && (next.classList.contains('qc') || next.classList.contains('full') || next.classList.contains('nav'))) {
+      setTimeout(() => {
+        next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 250);
+    }
+  }
+}
+
+/* ─── Rate item: scroll to NEXT rate-item within same card, not next card ─── */
+document.addEventListener('change', e => {
+  if (e.target.type === 'radio' && e.target.closest('.rate-item')) {
+    const currentItem = e.target.closest('.rate-item');
+    const nextItem = currentItem.nextElementSibling;
+    if (nextItem && nextItem.classList.contains('rate-item')) {
+      // Still has more items in this group — scroll to next item
+      setTimeout(() => {
+        nextItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    } else {
+      // Last item in this group — scroll to next card
+      autoScroll(e.target);
+    }
+  }
+});
+
+/* ─── Primary badge ─── */
+document.addEventListener('click', e => {
+  const b = e.target.closest('.pb');
+  if (!b) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const capsule = b.closest('.capsule');
+  const cb = capsule ? capsule.querySelector('input[type="checkbox"]') : null;
+  if (cb && !cb.checked) return;
+
+  const mg = b.closest('.mg');
+  if (mg) {
+    mg.querySelectorAll('.pb.active').forEach(x => {
+      if (x !== b) x.classList.remove('active');
+    });
+  }
+  b.classList.toggle('active');
+});
+
+/* Prevent label default on capsule clicks to avoid double-toggle */
+document.querySelectorAll('.capsule').forEach(cap => {
+  cap.addEventListener('click', e => {
+    if (e.target.closest('.pb')) {
+      e.preventDefault();
+    }
+  });
+});
+
+/* ═══ INTERACTIVE ANIMATIONS ═══ */
+
+/* 1. Mouse-following glow on dark pages */
+(function() {
+  const glow = document.createElement('div');
+  glow.style.cssText = 'position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:50;background:radial-gradient(circle,rgba(80,200,120,0.12) 0%,rgba(60,160,90,0.06) 30%,transparent 65%);transition:left 0.08s linear,top 0.08s linear,opacity 0.4s;opacity:0;will-change:left,top;';
+  document.body.appendChild(glow);
+  document.addEventListener('mousemove', e => {
+    const pg = document.querySelector('.pg.active');
+    if (pg && pg.classList.contains('pg-dark')) {
+      glow.style.opacity = '1';
+      glow.style.left = (e.clientX - 250) + 'px';
+      glow.style.top = (e.clientY - 250) + 'px';
+    } else {
+      glow.style.opacity = '0';
+    }
+  });
+})();
+
+/* 2. Ripple on card/capsule/mini click */
+document.addEventListener('click', e => {
+  const el = e.target.closest('.opt-card,.capsule,.mini-radio');
+  if (!el) return;
+  const r = document.createElement('div');
+  const rect = el.getBoundingClientRect();
+  const x = e.clientX - rect.left, y = e.clientY - rect.top;
+  const sz = Math.max(rect.width, rect.height) * 2;
+  r.style.cssText = 'position:absolute;border-radius:50%;background:rgba(107,143,113,0.18);pointer-events:none;transform:scale(0);width:'+sz+'px;height:'+sz+'px;left:'+(x-sz/2)+'px;top:'+(y-sz/2)+'px;animation:rippleOut 0.5s ease forwards;';
+  el.style.position = 'relative'; el.style.overflow = 'hidden';
+  el.appendChild(r);
+  setTimeout(() => r.remove(), 600);
+});
+
+/* 3. Re-trigger card entrance on page switch */
+const _go = go;
+go = function(n) {
+  _go(n);
+  setTimeout(() => {
+    const pg = document.querySelector('[data-p="'+n+'"]');
+    if (!pg) return;
+    pg.querySelectorAll('.qc,.full').forEach((c,i) => {
+      c.style.animation = 'none'; c.offsetHeight;
+      c.style.animation = 'bentoPop 0.5s '+(i*0.07)+'s var(--ease-bounce) forwards';
+    });
+  }, 100);
+};
+
+/* 4. 3D tilt on option cards */
+document.addEventListener('mousemove', e => {
+  const c = e.target.closest('.opt-card');
+  if (!c) return;
+  const r = c.getBoundingClientRect();
+  const x = (e.clientX - r.left)/r.width - 0.5;
+  const y = (e.clientY - r.top)/r.height - 0.5;
+  c.style.transform = 'perspective(500px) rotateY('+(x*8)+'deg) rotateX('+(-y*8)+'deg) scale(1.03)';
+});
+document.addEventListener('mouseout', e => {
+  const c = e.target.closest('.opt-card');
+  if (c) { c.style.transform = ''; }
+});
+
+/* 5. Rating number pulse */
+document.addEventListener('change', e => {
+  if (e.target.closest('.rate-item')) {
+    const rv = e.target.nextElementSibling;
+    if (rv) { rv.style.transform = 'scale(1.4)'; setTimeout(() => rv.style.transform = '', 200); }
+  }
+});
+
+/* 6. Progress bar glow pulse */
+setInterval(() => {
+  const pf = document.getElementById('pf');
+  if (pf && parseFloat(pf.style.width) > 0) {
+    pf.style.boxShadow = '0 0 14px rgba(90,153,96,0.6)';
+    setTimeout(() => pf.style.boxShadow = 'none', 600);
+  }
+}, 3000);
+
+/* 7. DNA Helix generator */
+(function() {
+  const helix = document.getElementById('helix');
+  if (!helix) return;
+  const bases = ['T','A','G','C'];
+  const pairs = {T:'A',A:'T',G:'C',C:'G'};
+  const total = 50, spacing = 28, radius = 60;
+  const twist = (Math.PI * 2) / 10;
+  for (let i = 0; i < total; i++) {
+    const y = i * spacing;
+    const angle = i * twist;
+    const base = bases[i % 4];
+    const pair = pairs[base];
+    // Strand 1
+    const c1 = document.createElement('div');
+    c1.className = 'helix-char';
+    c1.textContent = base;
+    c1.style.top = y + 'px';
+    c1.style.transform = 'translateX('+Math.cos(angle)*radius+'px) translateZ('+Math.sin(angle)*radius+'px)';
+    c1.style.opacity = 0.15 + Math.abs(Math.sin(angle)) * 0.4;
+    helix.appendChild(c1);
+    // Strand 2
+    const c2 = document.createElement('div');
+    c2.className = 'helix-char';
+    c2.textContent = pair;
+    c2.style.top = y + 'px';
+    c2.style.transform = 'translateX('+Math.cos(angle+Math.PI)*radius+'px) translateZ('+Math.sin(angle+Math.PI)*radius+'px)';
+    c2.style.opacity = 0.15 + Math.abs(Math.sin(angle+Math.PI)) * 0.4;
+    helix.appendChild(c2);
+    // Bond
+    const bond = document.createElement('div');
+    bond.className = 'helix-bond';
+    bond.style.top = (y+6) + 'px';
+    const x1 = Math.cos(angle)*radius, x2 = Math.cos(angle+Math.PI)*radius;
+    const z1 = Math.sin(angle)*radius, z2 = Math.sin(angle+Math.PI)*radius;
+    bond.style.width = Math.sqrt((x2-x1)**2+(z2-z1)**2) + 'px';
+    bond.style.transform = 'translateX('+Math.min(x1,x2)+'px) translateZ('+(z1+z2)/2+'px)';
+    bond.style.opacity = 0.3 + Math.abs(Math.sin(angle)) * 0.3;
+    helix.appendChild(bond);
+  }
+})();
+
+/* 8. Welcome page mouse glow */
+document.addEventListener('mousemove', e => {
+  const g = document.getElementById('wGlow');
+  if (!g) return;
+  const pg = document.querySelector('.pg.active');
+  if (pg && pg.classList.contains('pg-welcome')) {
+    g.style.opacity = '1';
+    g.style.left = (e.clientX - 150) + 'px';
+    g.style.top = (e.clientY - 150) + 'px';
+  }
+});
+
+/* 9. Fix go() for welcome page theme */
+const origGoTheme = go;
+const _origGo2 = go;
+// Patch theme detection to include pg-welcome as "dark-ish"
+
+/* ══════════════════════════════════════════════════════
+   10. Feishu Bitable Submit
+   ══════════════════════════════════════════════════════ */
+async function submitToFeishu() {
+  const btn = document.getElementById('submitBtn');
+  const btnSpan = btn ? btn.querySelector('span') : null;
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+  if (btnSpan) btnSpan.textContent = '提交中…';
+
+  /* ── helpers ── */
+  const fv = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  const rv = name => { const el = document.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; };
+
+  const jRates = (...names) => {
+    const o = {};
+    names.forEach(n => { const val = rv(n); if (val !== '') o[n] = parseInt(val); });
+    return JSON.stringify(o);
+  };
+
+  const getCaps = (pgNum, gridIdx) => {
+    const pg = document.querySelector('[data-p="'+pgNum+'"]');
+    if (!pg) return [];
+    const grids = pg.querySelectorAll('.capsule-grid');
+    if (gridIdx >= grids.length) return [];
+    return Array.from(grids[gridIdx].querySelectorAll('.capsule.sel span'))
+      .map(s => s.textContent.trim()).filter(Boolean);
+  };
+
+  const getMgPrimary = (pgNum, mgIdx) => {
+    const pg = document.querySelector('[data-p="'+pgNum+'"]');
+    if (!pg) return '';
+    const mgs = pg.querySelectorAll('.capsule-grid.mg');
+    if (mgIdx >= mgs.length) return '';
+    const pb = mgs[mgIdx].querySelector('.capsule.sel .pb.active');
+    if (pb) {
+      const sp = pb.closest('.capsule').querySelector('span');
+      return sp ? sp.textContent.trim() : '';
+    }
+    const first = mgs[mgIdx].querySelector('.capsule.sel span');
+    return first ? first.textContent.trim() : '';
+  };
+
+  const clean = o => {
+    const r = {};
+    Object.entries(o).forEach(([k,v]) => { if (v !== null && v !== '' && v !== undefined) r[k] = v; });
+    return r;
+  };
+
+  /* ── text mapping: HTML value → Feishu option name ── */
+  const TM = {
+    '<1月':'<1个月', '1-3月':'1-3个月', '3-12月':'3-12个月',
+    '基本不醒':'不醒', '1-2次':'1次', '3-4次':'>=3次', '4次以上':'>=3次',
+    '<10分钟':'很快', '10-30分钟':'5-30分钟', '>30分钟':'30-60分钟', '无法再睡':'>60分钟',
+    '<5小时':'<4小时', '5-6小时':'4-6小时',
+    '凌晨2-3点':'1-3点', '凌晨3-4点':'3-5点', '凌晨4-5点':'3-5点',
+    '早上5-6点':'经常比预期早醒1小时以上',
+    '任何时间':'任何时间都容易更兴奋',
+    '凌晨 / 清晨容易醒':'凌晨清晨容易醒',
+    '减少对药物 / 补剂 / 方法的依赖':'减少药物补剂依赖',
+    '不确定，只想先稳定一点':'不确定先稳定',
+    '长时间脑力工作 / 学习':'长时间脑力工作',
+    '经常需要做决定 / 承担责任':'经常做决定承担责任',
+    '节奏快、长期处于应对状态':'节奏快应对状态',
+    '需要频繁沟通 / 对人':'频繁沟通对人',
+    '倒班 / 夜班':'倒班夜班',
+    '学业 / 工作':'学业工作', '家庭 / 关系':'家庭关系',
+    '照顾孩子 / 家人':'照顾孩子家人',
+    '脑子停不下来，想事情':'脑子停不下来',
+    '身体放不松，紧、心跳、呼吸浅':'身体放不松',
+    '对环境敏感，光、声音、床、温度影响明显':'对环境敏感',
+    '说不清，就是睡不进去':'说不清就是睡不进去',
+  };
+  const tm = t => TM[t] || t;
+  const tmArr = arr => arr.map(tm).filter(Boolean);
+
+  const ss = val => val || null;
+  const ms = arr => arr.length ? arr : null;
+  const setIf = (key, val) => { if (val !== null && val !== undefined && val !== '') fields[key] = val; };
+  // 只在对象非空时才写入 JSON 字段，避免发送 '{}'
+  const setJson = (key, obj) => { const c = clean(obj); if (Object.keys(c).length) fields[key] = JSON.stringify(c); };
+
+  /* ── build fields object ── */
+  const fields = {};
+
+  // 联系 / 姓名
+  const wechat = fv('f_wechat'), phone = fv('f_phone');
+  fields['姓名标识'] = wechat || phone || ('匿名_' + Date.now());
+
+  // 数字
+  const age = parseFloat(fv('f_age'));
+  if (!isNaN(age) && age > 0) fields['年龄'] = age;
+  const ht = parseFloat(fv('f_height'));
+  if (!isNaN(ht) && ht > 0) fields['身高cm'] = ht;
+  const wt = parseFloat(fv('f_weight'));
+  if (!isNaN(wt) && wt > 0) fields['体重kg'] = wt;
+
+  // 性别
+  const gRaw = fv('f_gender');
+  const gVal = gRaw === '男' ? '男' : (gRaw === '女' ? '女' : (gRaw ? '其他' : ''));
+  setIf('性别', ss(gVal));
+
+  // 睡眠问题持续时间
+  setIf('睡眠问题持续时间', ss(tm(rv('dur'))));
+
+  /* ── 单题字段工具 ── */
+  const rateFs = (pairs) => pairs.forEach(([n,f]) => { const v=rv(n); if(v!=='') fields[f]=parseInt(v); });
+  const textFs = (pairs) => pairs.forEach(([n,f]) => { const v=rv(n); if(v!=='') fields[f]=v; });
+
+  // Page 1：最困扰的问题 / 最想先改善 / 开放问题
+  setIf('最困扰的问题', ms(getCaps(1, 0)));
+  setIf('最困扰的问题_主', ss(getMgPrimary(1, 0)));
+  setIf('最想先改善', ms(getCaps(1, 1)));
+  setIf('最想先改善_主', ss(getMgPrimary(1, 1)));
+  const p1Gold = document.querySelector('[data-p="1"] .qc-gold');
+  if (p1Gold) {
+    const inps = p1Gold.querySelectorAll('input[type="text"]');
+    if (inps[0] && inps[0].value.trim()) fields['最担心的问题'] = inps[0].value.trim();
+    if (inps[1] && inps[1].value.trim()) fields['最希望改善的白天状态'] = inps[1].value.trim();
+  }
+
+  // Page 2：作息与睡眠时长
+  setJson('作息情况', {上床时间:fv('f_bed_time'), 睡着时间:fv('f_sleep_time'), 起床时间:fv('f_wake_time'), 平均时长:rv('tst'), 作息稳定度:rv('sched')});
+
+  // 睡眠表现评分 s1-s10
+  rateFs([
+    ['s1','睡眠1_入睡超30分钟'],['s2','睡眠2_夜醒2次以上'],['s3','睡眠3_醒后难再睡'],
+    ['s4','睡眠4_比预期早醒1小时'],['s5','睡眠5_睡浅易受干扰'],['s6','睡眠6_梦多梦清晰'],
+    ['s7','睡眠7_睡够不解乏'],['s8','睡眠8_白天困低迷启动慢'],
+    ['s9','睡眠9_白天低迷晚上清醒'],['s10','睡眠10_睡眠忽好忽坏'],
+  ]);
+
+  // Page 3：你更像哪一种睡不好
+  setIf('睡前入睡时更像', ms(getCaps(3, 0)));
+  setIf('睡前入睡时更像_主', ss(getMgPrimary(3, 0)));
+  setIf('夜间醒来时更像', ms(getCaps(3, 1)));
+  setIf('夜间醒来时更像_主', ss(getMgPrimary(3, 1)));
+  setIf('醒后调整后更像', ms(getCaps(3, 2)));
+  setIf('醒后调整后更像_主', ss(getMgPrimary(3, 2)));
+
+  // Page 4：关键影响因素 e1-e10
+  rateFs([
+    ['e1','影响1_睡前刷手机短视频'],['e2','影响2_睡前工作处理消息'],['e3','影响3_压力责任待命感'],
+    ['e4','影响4_咖啡浓茶能量饮料'],['e5','影响5_酒精夜宵晚餐太重'],['e6','影响6_晚间运动'],
+    ['e7','影响7_补剂助眠药叠加'],['e8','影响8_空腹低碳控糖后夜醒'],
+    ['e9','影响9_噪音光线温度湿度'],['e10','影响10_出差换环境作息漂移'],
+  ]);
+  setJson('生活习惯', {咖啡因每天次数:fv('f_caf_count'), 咖啡因最晚:fv('f_caf_latest'), 饮酒每周次数:fv('f_alc_count'), 晚上饮酒:fv('f_alc_eve'), 运动每周次数:fv('f_exe_count'), 运动最晚:fv('f_exe_latest'), 晚餐时间:fv('f_dinner_time'), 睡前进食:rv('bf')});
+
+  // Page 5：身体信号
+  setIf('身体信号', ms(getCaps(5, 0)));
+  setIf('身体信号_主', ss(getMgPrimary(5, 0)));
+
+  // Page 6：睡眠监测
+  setIf('监测结果', ms(getCaps(6, 0)));
+  setJson('监测数据', {总睡眠:fv('f_mon_total'), 深睡小时:fv('f_mon_deep'), 深睡占比:fv('f_mon_deep_pct'), REM小时:fv('f_mon_rem'), REM占比:fv('f_mon_rem_pct'), 清醒次数:fv('f_mon_wake')});
+
+  // Page 7：方法补剂药物
+  textFs([
+    ['m1','方法1_早睡调整作息'],['m2','方法2_减少手机降光'],['m3','方法3_泡脚热水澡'],
+    ['m4','方法4_呼吸冥想身体扫描'],['m5','方法5_运动'],['m6','方法6_调整饮食控糖'],
+    ['m7','方法7_助眠补剂保健品'],['m8','方法8_助眠药安眠药'],
+  ]);
+  setIf('确定有帮助的方法', ss(fv('f_method_good')));
+  setIf('确定不适合的方法', ss(fv('f_method_bad')));
+  setIf('助眠药使用', ss(rv('dep')));
+  setIf('药物使用问题', ms(getCaps(7, 0)));
+
+  // Page 8：风险提示
+  setIf('风险信号', ms(getCaps(8, 0)));
+
+  // Page 9：最后补充
+  const cause = [fv('f_cause1'), fv('f_cause2'), fv('f_cause3')].filter(Boolean).join(' / ');
+  setIf('最影响睡眠的因素', ss(cause));
+  setIf('方案偏向', ms(getCaps(9, 0)));
+
+  // 其他补充
+  const otherParts = [
+    fv('f_other') ? '补充说明：' + fv('f_other') : '',
+    phone ? '手机：' + phone : '',
+  ].filter(Boolean).join('\n');
+  if (otherParts) fields['其他补充'] = otherParts;
+
+  /* ── 提交到本地代理 → 飞书 Bitable ── */
+  try {
+    const resp = await fetch('/api/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({fields})
+    });
+    const json = await resp.json();
+    if (json.code !== 0) console.warn('[Feishu] code:', json.code, json.msg);
+  } catch (e) {
+    console.error('[Submit] error:', e);
+    if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+    if (btnSpan) btnSpan.textContent = '提交评估';
+    alert('⚠️ 提交失败，请确认服务器正在运行（双击 启动调查服务器.command）后重试。');
+    return;
+  }
+
+  go(10);
+}
+</script>
+
+<style>
+@keyframes rippleOut { to { transform:scale(1); opacity:0; } }
+.opt-card { transition: transform 0.15s ease, border-color 0.25s, background 0.25s, box-shadow 0.25s !important; }
+.progress-fill { transition: width 0.6s var(--ease), box-shadow 0.3s !important; }
+.rv { transition: transform 0.2s var(--ease-bounce) !important; }
+</style>
+</body>
+</html>

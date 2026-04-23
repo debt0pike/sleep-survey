@@ -17,6 +17,10 @@
 
 # 旧字段脚本
 create_fields.py
+create_fields_v9.py
+
+# 本地启动工具
+启动调查服务器.command
 
 # macOS
 .DS_Store
